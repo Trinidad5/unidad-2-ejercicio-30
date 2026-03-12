@@ -1,0 +1,93 @@
+package awewaewaewaewaea;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.imageio.ImageIO;
+
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Color;
+import java.awt.BasicStroke;
+import java.awt.image.BufferedImage;
+
+import java.io.File;
+import java.io.IOException;
+
+public class Ventana5 extends JFrame {
+
+    BufferedImage image;
+
+    public Ventana5() {
+
+        setTitle("Ventana");
+        setSize(800, 600);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        try {
+            image = ImageIO.read(new File("src/imagen/cat (1).jpg"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        pintar();
+
+        setVisible(true);
+    }
+
+    public void pintar() {
+
+        JPanel pane = new JPanel() {
+
+            @Override
+            protected void paintComponent(Graphics g) {
+
+                super.paintComponent(g);
+
+                Graphics2D g2d = (Graphics2D) g;
+
+                g2d.drawLine(0, 0, 100, 100);
+
+                g2d.setColor(Color.RED);
+                g2d.setStroke(new BasicStroke(5));
+                g2d.drawLine(200, 200, 500, 200);
+
+                g2d.drawRect(250, 250, 100, 100);
+
+                g2d.setColor(Color.GREEN);
+                g2d.drawOval(400, 100, 90, 30);
+
+                g2d.drawArc(300, 100, 100, 100, 0, 270);
+
+                g2d.drawPolygon(
+                        new int[]{200,100,300},
+                        new int[]{100,300,500},
+                        3
+                );
+
+                g2d.setColor(Color.ORANGE);
+
+                g2d.fillRect(500, 300, 100, 100);
+                g2d.fillOval(400, 200, 100, 100);
+                g2d.fillArc(300, 300, 100, 100, 90, 90);
+
+                g2d.fillPolygon(
+                        new int[]{400,300,500},
+                        new int[]{200,300,500},
+                        3
+                );
+
+                if(image != null){
+                    g2d.drawImage(image, 500, 50, null);
+                }
+
+            }
+        };
+
+        add(pane);
+    }
+
+    public static void main(String[] args) {
+        new Ventana5();
+    }
+}
